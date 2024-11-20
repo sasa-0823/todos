@@ -1,0 +1,87 @@
+body {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #FFFAF4;
+
+}
+
+h1 {
+  background: #1fa67a;
+  /*背景色*/
+  padding: 0.5em;
+  /*文字周りの余白*/
+  color: white;
+  /*文字を白に*/
+  border-radius: 0.5em;
+  /*角の丸み*/
+  text-indent: 1rem;
+}
+
+
+ul {
+  padding: 0;
+  margin-top: 30px;
+}
+
+ul li {
+  color: #404040;
+  border-left: solid 20px #1fa67a;
+  /*左側の線*/
+  border-bottom: solid 2px #dadada;
+  /*下に灰色線*/
+  background: whitesmoke;
+  margin-bottom: 10px;
+  /*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none !important;
+  /*ポチ消す*/
+  font-weight: bold;
+}
+
+/* 重要度の高いタスクに色を付ける */
+.favColor {
+  border-left: solid 20px #d25e44;
+  /*左側の線*/
+}
+
+button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  max-width: 200px;
+  margin: auto;
+  padding: 0.5rem 0.5rem;
+  border: 2px solid #ffefa6;
+  background: #fff5c9;
+  color: #101010;
+  border-radius: 1vh;
+  transition: 0.5s;
+}
+
+button:hover {
+  color: #101010;
+  background: #fffae2;
+}
+
+p {
+  margin: 10px 0px;
+}
+
+.display {
+  display: none;
+}
+
+/* todoの内容 */
+.todoText {
+  font-size: 30px;
+  word-break: break-all;
+  overflow-wrap: normal;
+}
+
+.todoDeadline{
+  background-color: rgba(255, 147, 111,0.5);
+  width: 40%;
+}
