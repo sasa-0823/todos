@@ -70,14 +70,13 @@
             <p v-show="changeDisplay" :class="{'todoDeadline':todo.todoDeadline}"><span>期限：</span>{{todo.date}}</p>
 
             <div class="flixTodoButton">
-              <button class="todoButton" v-show="changeDisplay" @click="editingTodo(todo)">編集する</button>
-              <!-- タスクの完了と未完了を切替 -->
-              <button class="todoButton" v-if="changeDisplay" @click="completedTodo(todo)">タスク完了</button>
-              <button v-else @click="todo.done = !todo.done;">タスクを未完了に変更する</button>
-
+              <button class="todoButton btn-green" v-show="changeDisplay" @click="editingTodo(todo)">編集する</button>
               <!-- タスクの重要度変更 -->
               <button class="todoButton" v-show="changeDisplay"
                 @click="todo.fav=!todo.fav">{{todo.fav?"優先度を下げる":"優先度を上げる"}}</button>
+              <!-- タスクの完了と未完了を切替 -->
+              <button class="todoButton" v-if="changeDisplay" @click="completedTodo(todo)">タスク完了</button>
+              <button v-else @click="todo.done = !todo.done;">タスクを未完了に変更する</button>
             </div>
 
           </li>

@@ -19,7 +19,7 @@ h1 {
 }
 
 form{
-  background-color: antiquewhite;
+  background-color: rgb(255, 229, 194);
 }
 
 .formContent{
@@ -95,7 +95,7 @@ button {
   /* 各ボタンの幅を均等にする */
   margin: 0 5px;
   /* ボタン間のスペースを調整 */
-  height: 70px;
+  height: 50px;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -104,6 +104,10 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.btn-green{
+  background-color: #82AE46;
 }
 
 p {
