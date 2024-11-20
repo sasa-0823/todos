@@ -2,18 +2,11 @@
 const todos = [
   // {
   //   id: id++,
-  //   text: "きゅうりを買う",
-  //   done: true,
-  //   fav: true,
-  //   date: ""
-  // },
-  // {
-  //   id: id++,
   //   text: "メールをする",
-  //   done: true,・・・タスク完了・未完了
-  //   fav: false,・・・優先度
+  //   done: true,
+  //   fav: false,
   //   todoDeadline: false,
-  //   deleteDate:"",
+  //   deleteDate:""
   //   date: ""
   // }
 ];
@@ -41,6 +34,7 @@ const myData = {
   editTodoWord: "",
   boolean: false, // 編集画面・main画面の表示切替用
   changeDisplay: true, // タスク完了・未完了の表示切替用
+  //期限の近いタスクのcss追加用
 };
 
 
@@ -51,9 +45,10 @@ const app = Vue.createApp({
   },
   // ローカルストレージからデータを取得
   beforeMount() {
-    const getData = localStorage.getItem('myTodo')
+    const getData = localStorage.getItem('myTodo');
     if (getData) {
       this.todos = JSON.parse(getData);
+      console.log(this.todos);
     }
     // 日付が未入力の場合"期限なし"と表記
     this.todos.forEach(todo => {
@@ -64,29 +59,32 @@ const app = Vue.createApp({
   },
 
   created() {
-    console.log(this.todos);
+
   },
 
   updated() {
-    //タスク完了後3日でタスクを消す。
-    this.todos.forEach(todo=>{
-      if(this.loadDate-new Date(todo.deleteDate)/1000/3600/24 >= 0){
-        this.todos=this.todos.filter(t=>t.done===true)
+    //DOM更新時、完了後３日のタスクをtodosから削除
+    this.todos = this.todos.filter(todo => {
+      if (todo.done === true) {
+        return true;
+      } else {
+        return ((new Date() - new Date(todo.deleteDate)) / 1000 / 3600 / 24 <= 3)
       }
-      console.log(todos)
     });
-    // DOM更新時にローカルストレージにdataを保存
+
+    //DOM更新時にローカルストレージにdataを保存
     const updateDom = JSON.stringify(this.todos);
     localStorage.setItem('myTodo', updateDom);
-    // 日付が未入力の場合"期限なし"と表記
+    console.log(this.todos);
+    // 日付が未入力の場合"期限なし"と表記・入力済みの場合は起源の１日前に協調
     this.todos.forEach(todo => {
       if (!todo.date) { todo.date = "期限なし"; }
-      else if ((new Date(todo.date) - this.loadDate) / 1000 / 3600 / 24 <= 1) {
+      else if ((new Date(todo.date) - loadDate) / 1000 / 3600 / 24 <= 1) {
         todo.todoDeadline = true;
       }
       else { todo.todoDeadline = false; }
+      // console.log(todo.todoDeadline)
     });
-    
 
   },
 
@@ -118,7 +116,7 @@ const app = Vue.createApp({
     // TodoをTodosに追加
     addTodo() {
       if (this.newTodo) {
-        this.todos.push({ id: id++, text: this.newTodo, done: true, fav: false, date: this.newDate, todoDeadline: false });
+        this.todos.push({ id: id++, text: this.newTodo, done: true, fav: false, date: this.newDate, todoDeadline: false, deleteDate: "" });
         this.newTodo = "";
         this.newDate = "";
         console.log(this.todos);
@@ -155,23 +153,9 @@ const app = Vue.createApp({
     // タスク完了後の処理
     completedTodo(todo) {
       todo.done = !todo.done;
-      if (todo.done == false) {
-        todo.deleteDate = loadDate;
-      } else { todo.deleteDate = ""; }
-    },
+      todo.deleteDate = new Date();
+    }
 
-    // ,
-    // // IDの再振り分け
-    // updateId() {
-    //   id = 0;
-    //   this.todos.forEach(todo => {
-    //     todo.id = id++;
-    //   });
-    // },
-    // タスクに期限を設定する(編集画面内で任意の値を入力)
-    // settingPeriod() {
-    //   return false;
-    // }
   }
 });
 

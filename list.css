@@ -2,12 +2,12 @@ body {
   max-width: 600px;
   margin: auto;
   padding: 20px;
-  background-color: #FFFAF4;
+  background-color: #fff8ef;
 
 }
 
 h1 {
-  background: #1fa67a;
+  background: #f4d07e;
   /*背景色*/
   padding: 0.5em;
   /*文字周りの余白*/
@@ -18,15 +18,33 @@ h1 {
   text-indent: 1rem;
 }
 
+form{
+  background-color: antiquewhite;
+}
+
+.formContent{
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.formContent h3{
+  margin-top: 10px;
+}
+
+h5 {
+  margin: 30px 0px;
+}
+
+
+
 
 ul {
   padding: 0;
-  margin-top: 30px;
 }
 
 ul li {
   color: #404040;
-  border-left: solid 20px #1fa67a;
+  border-left: solid 20px #82AE46;
   /*左側の線*/
   border-bottom: solid 2px #dadada;
   /*下に灰色線*/
@@ -51,8 +69,8 @@ button {
   text-align: center;
   text-decoration: none;
   font-size: 1rem;
-  max-width: 200px;
-  margin: auto;
+  max-width: 600px;
+  margin: 20px auto;
   padding: 0.5rem 0.5rem;
   border: 2px solid #ffefa6;
   background: #fff5c9;
@@ -61,9 +79,31 @@ button {
   transition: 0.5s;
 }
 
-button:hover {
-  color: #101010;
-  background: #fffae2;
+
+.checkCompletedtodo {
+  width: 90%;
+  margin: 20px 5%;
+}
+
+.flixTodoButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoButton {
+  flex: 1;
+  /* 各ボタンの幅を均等にする */
+  margin: 0 5px;
+  /* ボタン間のスペースを調整 */
+  height: 70px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffa07a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 p {
@@ -81,7 +121,7 @@ p {
   overflow-wrap: normal;
 }
 
-.todoDeadline{
-  background-color: rgba(255, 147, 111,0.5);
+.todoDeadline {
+  background-color: rgba(255, 147, 111, 0.5);
   width: 40%;
 }

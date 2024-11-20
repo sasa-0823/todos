@@ -1,82 +1,155 @@
-<!DOCTYPE html>
-<html lang="ja">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <link href="./list.css" rel="stylesheet">
-  <title>Big Todo</title>
-</head>
+const todos = [
+  // {
+  //   id: id++,
+  //   text: "きゅうりを買う",
+  //   done: true,
+  //   fav: true,
+  //   date: ""
+  // },
+  // {
+  //   id: id++,
+  //   text: "メールをする",
+  //   done: true,
+  //   fav: false,
+  //   date: ""
+  // }
+];
 
-<body>
-  <div id="app">
+const idSelect = (todos) => {
+  if (todos && todos.length > 0) {
+    return Math.max(...todos.map(todo => todo.id)) + 1;
+  } else {
+    return 0;
+  }
+};
 
-    <!-- todo編集画面 editingTodoボタン（編集するボタン）を押した後ダイアログにて編集画面を表示-->
-    <dialog open v-show="boolean">
-      <p>編集内容</p>
-      <input type="text" v-model="editTodo" :placeholder="editTodoWord">
-      <p>期限を設定（設定は任意）</p>
-      <input type="date" v-model="editDate">
-      <br>
-      <button @click="editCompleted">編集完了</button>
-      <button @click="boolean=!boolean">キャンセル</button>
-    </dialog>
+let id = idSelect(todos);
 
-    <!-- main画面 -->
-    <div :class="{ display: boolean }">
-      <h1>{{ appName }}</h1>
-      <p>タスクを管理する</p>
+const myData = {
+  appName: "BigTodo",
+  todos: todos,
+  newTodo: "", // 追加するtodo
+  newDate: "", // 追加するtodoの期限
+  editId: 0, // 編集するtodoのidの取得用
+  editTodo: "",
+  editDate: "",
+  editTodoWord: "",
+  boolean: false, // 編集画面・main画面の表示切替用
+  changeDisplay: true, // タスク完了・未完了の表示切替用
+  todoDeadline: "list-group-item list-group-item-danger" //期限の近いタスクのcss追加用
+};
 
-      <!-- タスク完了。未完了切り替え -->
-      <button v-if="changeDisplay" @click="changeDisplay = !changeDisplay">完了したタスクを確認する</button>
-      <button v-else @click="changeDisplay = !changeDisplay">未完了のタスクを確認する</button>
+const app = Vue.createApp({
+  data() {
+    return myData;
+  },
+  // ローカルストレージからデータを取得
+  beforeMount() {
+    const getData = localStorage.getItem('myTodo')
+    if (getData) {
+      this.todos = JSON.parse(getData);
+    }
+    // 日付が未入力の場合"期限なし"と表記
+    this.todos.forEach(todo => {
+      if (!todo.date) { todo.date = "期限なし"; }
+    });
+    // タスクのIDを初期化
+    id = idSelect(this.todos);
+  },
 
-      <!-- todo追加フォーム -->
-      <div v-show="changeDisplay">
-      <h3>追加するタスクの内容</h3>
-      <input v-model="newTodo" placeholder="new todo">
-      <input type="date" v-model="newDate">
-      <button @click="addTodo">追加する</button>
-      </div>
+  created() {
+    console.log(this.todos);
+  },
+  // DOM更新時にローカルストレージにdataを保存
+  updated() {
+    const updateDom = JSON.stringify(this.todos);
+    localStorage.setItem('myTodo', updateDom);
+    // 日付が未入力の場合"期限なし"と表記
+    this.todos.forEach(todo => {
+      if (!todo.date) { todo.date = "期限なし"; }
+      else if (todo.date) { todo.date }
+    });
+  },
 
-      <!-- todo表示 -->
-      <table class="tableBored table table-striped" >
-        <tr class="table-danger"><!-- CSSはここ -->
-          <th>番号</th>
-          <th width="25%">内容</th>
-          <th v-show="changeDisplay">期限</th>
-          <th v-show="changeDisplay">タスク編集</th>
-          <th>タスク完了</th>
-          <th v-show="changeDisplay">優先タスク</th>
-        </tr>
+  computed: {
+    selectTodos() {
+      return this.changeDisplay
+        ? this.sortTrue.filter(t => t.done === true)
+        : this.sortFalse.filter(t => t.done === false);
+    },
+    // 未完了タスク表示画面のソート(1は降順-1は昇順)
+    sortTrue() {
+      return this.todos.sort((a, b) => {
+        if (a.fav > b.fav) return -1;
+        if (a.fav < b.fav) return 1;
+        if (a.id > b.id) return 1;
+        if (a.id < b.id) return -1;
+        return 0;
+      });
+    },
+    // 完了タスク表示画面のソート
+    sortFalse() {
+      return this.todos.sort((a, b) => {
+        return a.id - b.id;
+      });
+    }
+  },
 
-        <tr v-for="todo in selectTodos" :key="todo.id">
-          <td>{{ todo.id }}</td>
-          <td>{{ todo.text }}</td>
-          <td v-show="changeDisplay">{{todo.date}}</td>
-          <td v-show="changeDisplay"><button @click="editingTodo(todo)">編集する</button></td>
-          <!-- タスクを完了と未完了で切替 -->
-          <td>
-            <button v-if="changeDisplay" @click="completedTodo(todo)">タスク完了</button>
-            <button v-else @click="completedTodo(todo)">タスクを未完了に変更する</button>
-          </td>
-          <!-- タスクの重要度変更 -->
-          <td v-show="changeDisplay">
-            <button @click="todo.fav=!todo.fav">{{todo.fav?"優先度を下げる":"優先度を上げる"}}
-            </button>
-          </td>
-        </tr>
+  methods: {
+    // TodoをTodosに追加
+    addTodo() {
+      if (this.newTodo) {
+        this.todos.push({ id: id++, text: this.newTodo, done: true, fav: false, date: this.newDate });
+        this.newTodo = "";
+        this.newDate = "";
+        console.log(this.todos);
+      }
+    },
+    // Todoを編集（編集画面ダイアログ表示)
+    editingTodo(todo) {
+      this.boolean = true; // ダイアログの表示・main画面の非表示
+      this.editTodoWord = todo.text;
+      this.editId = todo.id;
+      console.log(this.editId);
+    },
+    // Todo内容の編集完了(編集完了ボタンで入力値を元の値に代入)
+    editCompleted() {
+      const todo = this.todos.find(t => t.id === this.editId);
+      if (todo) {
+        if (this.editTodo !== "") {
+          todo.text = this.editTodo;
+        }
+        if (this.editDate !== "") {
+          todo.date = this.editDate;
+        } else {
+          todo.date = "期限なし";
+        }
+        // 値のリセット
+        this.editId = 0;
+        this.editTodo = "";
+        this.editDate = "";
+        this.editTodoWord = "";
+        console.log(this.todos);
+      }
+      this.boolean = false; // ダイアログの非表示・main画面の表示
+    },
+    // タスク完了後の処理
+    completedTodo(todo) {
+      todo.done = !todo.done;
+    },
+    // IDの再振り分け
+    updateId() {
+      id = 0;
+      this.todos.forEach(todo => {
+        todo.id = id++;
+      });
+    },
+    // タスクに期限を設定する(編集画面内で任意の値を入力)
+    // settingPeriod() {
+    //   return false;
+    // }
+  }
+});
 
-      </table>
-    </div>
-  </div>
-
-
-  <!-- JavaScript -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-  <script src="list.js" defer></script>
-</body>
-
-</html>
+app.mount("#app");
