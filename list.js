@@ -43,12 +43,13 @@ const app = Vue.createApp({
   data() {
     return myData;
   },
+
   // ローカルストレージからデータを取得
   beforeMount() {
     const getData = localStorage.getItem('myTodo');
     if (getData) {
       this.todos = JSON.parse(getData);
-      console.log(this.todos);
+      // console.log(this.todos);
     }
     // 日付が未入力の場合"期限なし"と表記
     this.todos.forEach(todo => {
@@ -56,6 +57,14 @@ const app = Vue.createApp({
     });
     // タスクのIDを初期化
     id = idSelect(this.todos);
+     //DOM更新時、完了後３日のタスクをtodosから削除
+     this.todos = this.todos.filter(todo => {
+      if (todo.done === true) {
+        return true;
+      } else {
+        return ((new Date() - new Date(todo.deleteDate)) / 1000 / 3600 / 24 <= 3)
+      }
+    });
   },
 
   created() {
@@ -63,14 +72,6 @@ const app = Vue.createApp({
   },
 
   updated() {
-    //DOM更新時、完了後３日のタスクをtodosから削除
-    this.todos = this.todos.filter(todo => {
-      if (todo.done === true) {
-        return true;
-      } else {
-        return ((new Date() - new Date(todo.deleteDate)) / 1000 / 3600 / 24 <= 3)
-      }
-    });
 
     //DOM更新時にローカルストレージにdataを保存
     const updateDom = JSON.stringify(this.todos);
@@ -119,7 +120,7 @@ const app = Vue.createApp({
         this.todos.push({ id: id++, text: this.newTodo, done: true, fav: false, date: this.newDate, todoDeadline: false, deleteDate: "" });
         this.newTodo = "";
         this.newDate = "";
-        console.log(this.todos);
+        // console.log(this.todos);
       }
     },
     // Todoを編集（編集画面ダイアログ表示)
@@ -146,7 +147,7 @@ const app = Vue.createApp({
         this.editTodo = "";
         this.editDate = "";
         this.editTodoWord = "";
-        console.log(this.todos);
+        // console.log(this.todos);
       }
       this.boolean = false; // ダイアログの非表示・main画面の表示
     },

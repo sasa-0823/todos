@@ -1,0 +1,28 @@
+#dialog {
+    vertical-align: middle;
+    align-items: center;
+    
+}
+
+dialog {
+    min-height: 400px;
+    width: 60%;
+    height: 50%;
+    top:25%;
+}
+
+#dialog p {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.center input {
+    align-items: center;
+    width: 100%;
+}
+
+textarea{
+    resize: none;
+    align-items: center;
+    width: 100%;
+}
