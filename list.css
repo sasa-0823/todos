@@ -100,9 +100,16 @@ button {
   font-size: 1.3rem;
 }
 
+/* リストのボタンを並べる */
 .flixTodoButton {
   display: flex;
   justify-content: space-between;
+}
+
+/* deleteBottonを並べる */
+.deleteBotton{
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .todoButton {
@@ -112,7 +119,7 @@ button {
   /* ボタン間のスペースを調整 */
   height: 50px;
   padding: 0px 3px;
-  font-size: 1.2em;
+  font-size: 1rem;
   line-height: normal;
   border: none;
   border-radius: 5px;
@@ -128,21 +135,31 @@ button {
 }
 
 .completedTodoButton {
-  margin-bottom: 0px;
-  /* コンテナ内の他のコンテンツの下に配置 */
+  background-color: #a4cc6d;
   width: 100%;
-  /* ボタンの幅を100%に */
-  padding: 5px;
-  border-radius: 5px;
-  border-width: 5px;
-  font-size: 1.2rem;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 4.5vw;
+  white-space: nowrap;
+  padding: 10px 15px;
 }
 
 .btn-green {
   background-color: #82AE46;
+}
+
+.btn-red {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 4.5vw;
+  white-space: nowrap;
 }
 
 p {
@@ -155,7 +172,7 @@ p {
 
 /* todoの内容 */
 .todoText {
-  font-size: 30px;
+  font-size: 30px;  
   word-break: break-all;
   overflow-wrap: normal;
 }
@@ -169,6 +186,9 @@ p {
 .todoDeadlineRED {
   background-color: rgba(255, 145, 108, 0.6);
   width: 40%;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /* タスク完了画面の注意書きクラス */
@@ -190,5 +210,5 @@ p {
   margin: 0px 0px 20px 0px;
   padding: 5px 20px 5px 5px;
   border: 1px solid #404040;
-  opacity: 0.9;
-}
+  opacity: 0.8;
+} 

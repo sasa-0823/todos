@@ -57,8 +57,8 @@ const app = Vue.createApp({
     });
     // タスクのIDを初期化
     id = idSelect(this.todos);
-     //DOM更新時、完了後３日のタスクをtodosから削除
-     this.todos = this.todos.filter(todo => {
+    //DOM更新時、完了後３日のタスクをtodosから削除
+    this.todos = this.todos.filter(todo => {
       if (todo.done === true) {
         return true;
       } else {
@@ -123,6 +123,16 @@ const app = Vue.createApp({
         // console.log(this.todos);
       }
     },
+
+    // Todosから選択した要素を削除
+    confirmDeletion(todo) {
+      if (confirm('本当にこのタスクを削除してよろしいですか？')) {
+         this.deletionTodo(todo); }
+    },
+    deletionTodo(todo) {
+      this.todos = this.todos.filter((t) => t !== todo)
+    },
+
     // Todoを編集（編集画面ダイアログ表示)
     editingTodo(todo) {
       this.boolean = true; // ダイアログの表示・main画面の非表示
@@ -161,19 +171,3 @@ const app = Vue.createApp({
 });
 
 app.mount("#app");
-
-
-async  function a (){
-  console.log("a");
-  await b ();
-}
-
-function b (){
-  return new Promise((resolve , reject)=>{
-    for(let i = 0 ; i <=1000 ; i++ )
-    console.log(i);
-    resolve();
-  });
-}
-
-a();

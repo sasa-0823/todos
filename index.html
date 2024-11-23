@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="老眼でスマホの文字が見えない方にも配慮したtodoアプリケーションです。">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link href="./list.css" rel="stylesheet">
@@ -59,7 +60,7 @@
           <button type="button" @click="addTodo" class="addTodo">追加する</button>
         </div>
       </form>
-
+      <!-- 完了タスク一覧画面表示 -->
       <h3 v-show="!changeDisplay" class="infoCompleteList">完了タスク一覧</h3>
 
       <!-- タスク完了。未完了切り替え -->
@@ -80,14 +81,15 @@
             <span class="todoText">{{ todo.text }}</span>
             <p v-show="changeDisplay" :class="['todoDeadline',{'todoDeadlineRED':todo.todoDeadline}]"><span>期限：</span>{{todo.date}}</p>
 
-            <div class="flixTodoButton">
-              <button class="todoButton btn-green" v-show="changeDisplay" @click="editingTodo(todo)">編集する</button>
+            <div :class="[changeDisplay? 'flixTodoButton':'deleteBotton']">
+              <button v-if="changeDisplay" class="todoButton btn-green" @click="editingTodo(todo)">編集する</button>
+              <button v-else class="todoButton btn-red" @click="confirmDeletion(todo)">タスクを削除</button>
               <!-- タスクの重要度変更 -->
               <button :class="['todoButton',{'favTodoButton':todo.fav}]" v-show="changeDisplay"
                 @click="todo.fav=!todo.fav">{{todo.fav?"優先度を下げる":"優先度を上げる"}}</button>
               <!-- タスクの完了と未完了を切替 -->
-              <button class="todoButton" v-if="changeDisplay" @click="completedTodo(todo)">タスク完了</button>
-              <button v-else @click="todo.done = !todo.done;" :class="{'completedTodoButton':!changeDisplay}">タスクを未完了に変更する</button>
+              <button class="todoButton" v-if="changeDisplay" @click="completedTodo(todo)" style="white-space: nowrap;">タスク完了</button>
+              <button :class="['todoButton',{'completedTodoButton':!changeDisplay}]" v-else @click="todo.done = !todo.done;">タスクを未完了に変更</button>
             </div>
 
           </li>
