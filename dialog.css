@@ -1,28 +1,74 @@
-#dialog {
-    vertical-align: middle;
-    align-items: center;
-    
-}
 
-dialog {
-    min-height: 400px;
+  
+  /* #dialog {
+
+  } */
+  
+  dialog {
     width: 60%;
-    height: 50%;
-    top:25%;
-}
-
-#dialog p {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.center input {
+    height: auto;
+    /* margin: 5% 0px; */
+    /* display: flex; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    justify-content: center;
     align-items: center;
+  }
+  
+  dialog p {
+    margin-bottom: 5px;
+    font-size: 2em;
+    font-family: "Yu Gothic", "Meiryo", "Arial";
+  }
+  
+  .center input, .center textarea {
     width: 100%;
-}
-
-textarea{
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .center textarea {
     resize: none;
-    align-items: center;
+    height: 100px;
+  }
+  
+  .dialogButton {
     width: 100%;
-}
+    margin-top: 5%;
+    text-align:center;
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  dialog button {
+    width: 90%;
+    height: 10vh;
+    padding: 10px;
+    margin: 20px 2.5%;
+    border: none;
+    border-radius: 5px;
+    background-color: #82AE46;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  dialog button:last-child {
+    background-color: #d25e44;
+  }
+  
+  dialog button:hover {
+    opacity: 0.8;
+  }
+  

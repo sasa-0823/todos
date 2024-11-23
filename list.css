@@ -18,16 +18,16 @@ h1 {
   text-indent: 1rem;
 }
 
-form{
+form {
   background-color: rgb(255, 229, 194);
 }
 
-.formContent{
+.formContent {
   margin-top: 30px;
   padding: 10px;
 }
 
-.formContent h3{
+.formContent h3 {
   margin-top: 10px;
 }
 
@@ -56,12 +56,17 @@ ul li {
   list-style-type: none !important;
   /*ポチ消す*/
   font-weight: bold;
+  flex-direction: column;
 }
 
 /* 重要度の高いタスクに色を付ける */
 .favColor {
   border-left: solid 20px #d25e44;
   /*左側の線*/
+}
+
+.textboxRows {
+  height: 50px;
 }
 
 button {
@@ -83,6 +88,16 @@ button {
 .checkCompletedtodo {
   width: 90%;
   margin: 20px 5%;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border: 8px solid #ffefa6;
+}
+
+.addTodo {
+  width: 90%;
+  margin: 20px 5%;
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .flixTodoButton {
@@ -93,20 +108,40 @@ button {
 .todoButton {
   flex: 1;
   /* 各ボタンの幅を均等にする */
-  margin: 0 5px;
+  margin: 0 4px;
   /* ボタン間のスペースを調整 */
   height: 50px;
-  padding: 10px;
+  padding: 0px 3px;
+  font-size: 1.2em;
+  line-height: normal;
   border: none;
   border-radius: 5px;
   background-color: #ffa07a;
   color: white;
-  font-size: 16px;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: background-color 0.8s;
+}
+
+.favTodoButton {
+  background-color: #63a9fd;
+}
+
+.completedTodoButton {
+  margin-bottom: 0px;
+  /* コンテナ内の他のコンテンツの下に配置 */
+  width: 100%;
+  /* ボタンの幅を100%に */
+  padding: 5px;
+  border-radius: 5px;
+  border-width: 5px;
+  font-size: 1.2rem;
+  font-weight: bolder;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.btn-green{
+.btn-green {
   background-color: #82AE46;
 }
 
@@ -126,7 +161,34 @@ p {
 }
 
 .todoDeadline {
-  background-color: rgba(255, 147, 111, 0.5);
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.todoDeadlineRED {
+  background-color: rgba(255, 145, 108, 0.6);
   width: 40%;
 }
 
+/* タスク完了画面の注意書きクラス */
+
+.infoCompleteList {
+  background: #a4cc6d;
+  /*背景色*/
+  padding: 0.5em;
+  /*文字周りの余白*/
+  color: white;
+  /*文字を白に*/
+  border-radius: 0.5em;
+  /*角の丸み*/
+  text-indent: 1rem;
+  margin: 10px 0px 0px 0px;
+}
+
+.info {
+  margin: 0px 0px 20px 0px;
+  padding: 5px 20px 5px 5px;
+  border: 1px solid #404040;
+  opacity: 0.9;
+}

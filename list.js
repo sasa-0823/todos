@@ -161,3 +161,19 @@ const app = Vue.createApp({
 });
 
 app.mount("#app");
+
+
+async  function a (){
+  console.log("a");
+  await b ();
+}
+
+function b (){
+  return new Promise((resolve , reject)=>{
+    for(let i = 0 ; i <=1000 ; i++ )
+    console.log(i);
+    resolve();
+  });
+}
+
+a();

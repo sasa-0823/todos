@@ -19,23 +19,24 @@
     <div id="dialog">
 
       <dialog open v-show="boolean">
-        <p>編集内容</p>
+        <p>◆編集内容</p>
         <div class="center">
           <textarea v-model="editTodo" :placeholder="editTodoWord"></textarea>
 
-          <p>期限を設定（設定は任意）</p>
+          <p>◆期限</p>
           <div class="center">
             <input type="date" v-model="editDate">
           </div>
-          <br>
+          <div class="dialogButton">
           <button @click="editCompleted">編集完了</button>
           <button @click="boolean=!boolean">キャンセル</button>
+          </div>
       </dialog>
     </div>
 
     <!-- main画面 -->
     <div :class="{ display: boolean }">
-      <h1>{{ appName }}</h1>
+      <h1 v-show="changeDisplay">{{ appName }}</h1>
 
       <!-- todo追加フォーム -->
       <form v-show="changeDisplay">
@@ -45,28 +46,30 @@
             <label class="control-label">
               <h3>追加するタスクの内容</h3>
             </label>
-            <input class="form-control" type="text" v-model="newTodo" placeholder="new todo">
+            <input class="form-control textboxRows" type="text" v-model="newTodo" placeholder="new todo">
           </div>
 
           <div class="form-group">
             <label class="control-label">
-              <h3>期限を設定（設定は任意です。）</h3>
+              <h3>期限を設定（設定は任意）</h3>
             </label>
-            <input type="date" class="form-control" v-model="newDate">
+            <input type="date" class="form-control textboxRows" v-model="newDate">
           </div>
 
-          <button @click="addTodo" class="checkCompletedtodo">追加する</button>
+          <button type="button" @click="addTodo" class="addTodo">追加する</button>
         </div>
       </form>
+
+      <h3 v-show="!changeDisplay" class="infoCompleteList">完了タスク一覧</h3>
 
       <!-- タスク完了。未完了切り替え -->
       <div>
         <button v-if="changeDisplay" @click="changeDisplay = !changeDisplay"
           class="checkCompletedtodo">完了したタスクを確認する</button>
-        <button v-else @click="changeDisplay = !changeDisplay" class="checkCompletedtodo">未完了のタスクを確認する</button>
+        <button v-else @click="changeDisplay = !changeDisplay" class="checkCompletedtodo">ホームに戻る</button>
       </div>
 
-      <h5 v-show="!changeDisplay">※完了タスクについては完了後３日で削除されます</h5>
+      <h5 v-show="!changeDisplay" class="info">※完了タスクについては完了後1日で削除されます</h5>
 
       <div>
         <!-- todo表示 -->
@@ -75,16 +78,16 @@
           <li :class="{'favColor':todo.fav}" v-for="todo in selectTodos" :key="todo.id">
 
             <span class="todoText">{{ todo.text }}</span>
-            <p v-show="changeDisplay" :class="{'todoDeadline':todo.todoDeadline}"><span>期限：</span>{{todo.date}}</p>
+            <p v-show="changeDisplay" :class="['todoDeadline',{'todoDeadlineRED':todo.todoDeadline}]"><span>期限：</span>{{todo.date}}</p>
 
             <div class="flixTodoButton">
               <button class="todoButton btn-green" v-show="changeDisplay" @click="editingTodo(todo)">編集する</button>
               <!-- タスクの重要度変更 -->
-              <button class="todoButton" v-show="changeDisplay"
+              <button :class="['todoButton',{'favTodoButton':todo.fav}]" v-show="changeDisplay"
                 @click="todo.fav=!todo.fav">{{todo.fav?"優先度を下げる":"優先度を上げる"}}</button>
               <!-- タスクの完了と未完了を切替 -->
               <button class="todoButton" v-if="changeDisplay" @click="completedTodo(todo)">タスク完了</button>
-              <button v-else @click="todo.done = !todo.done;">タスクを未完了に変更する</button>
+              <button v-else @click="todo.done = !todo.done;" :class="{'completedTodoButton':!changeDisplay}">タスクを未完了に変更する</button>
             </div>
 
           </li>
