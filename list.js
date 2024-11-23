@@ -126,7 +126,7 @@ const app = Vue.createApp({
 
     // Todosから選択した要素を削除
     confirmDeletion(todo) {
-      if (confirm('本当にこのタスクを削除してよろしいですか？')) {
+      if (confirm('本当にタスクを削除してもよろしいですか？')) {
          this.deletionTodo(todo); }
     },
     deletionTodo(todo) {
@@ -138,8 +138,9 @@ const app = Vue.createApp({
       this.boolean = true; // ダイアログの表示・main画面の非表示
       this.editTodoWord = todo.text;
       this.editId = todo.id;
-      console.log(this.editId);
+      this.editDate = todo.date;
     },
+    
     // Todo内容の編集完了(編集完了ボタンで入力値を元の値に代入)
     editCompleted() {
       const todo = this.todos.find(t => t.id === this.editId);

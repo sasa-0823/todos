@@ -3,19 +3,19 @@ body {
   margin: auto;
   padding: 20px;
   background-color: #fff8ef;
-
 }
 
 h1 {
   background: #f4d07e;
-  /*背景色*/
-  padding: 0.5em;
-  /*文字周りの余白*/
+  padding: 0.2em;
   color: white;
-  /*文字を白に*/
   border-radius: 0.5em;
-  /*角の丸み*/
   text-indent: 1rem;
+  font-family: 'Arial', sans-serif;
+  /* フォントスタイル */
+  font-size: 2rem;
+  /* フォントサイズ */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 form {
@@ -23,7 +23,7 @@ form {
 }
 
 .formContent {
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 10px;
 }
 
@@ -32,11 +32,8 @@ form {
 }
 
 h5 {
-  margin: 30px 0px;
+  margin: 30px 0;
 }
-
-
-
 
 ul {
   padding: 0;
@@ -44,17 +41,14 @@ ul {
 
 ul li {
   color: #404040;
+  height: auto;
   border-left: solid 20px #82AE46;
-  /*左側の線*/
   border-bottom: solid 2px #dadada;
-  /*下に灰色線*/
   background: whitesmoke;
   margin-bottom: 10px;
-  /*下のバーとの余白*/
   line-height: 1.5;
   padding: 0.5em;
   list-style-type: none !important;
-  /*ポチ消す*/
   font-weight: bold;
   flex-direction: column;
 }
@@ -62,7 +56,6 @@ ul li {
 /* 重要度の高いタスクに色を付ける */
 .favColor {
   border-left: solid 20px #d25e44;
-  /*左側の線*/
 }
 
 .textboxRows {
@@ -82,8 +75,14 @@ button {
   color: #101010;
   border-radius: 1vh;
   transition: 0.5s;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  /* 影を追加 */
 }
 
+button:hover {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  /* ホバー時の影 */
+}
 
 .checkCompletedtodo {
   width: 90%;
@@ -100,26 +99,23 @@ button {
   font-size: 1.3rem;
 }
 
-/* リストのボタンを並べる */
 .flixTodoButton {
   display: flex;
   justify-content: space-between;
 }
 
-/* deleteBottonを並べる */
-.deleteBotton{
+.deleteBotton {
   display: flex;
   flex-direction: row-reverse;
+  width: 100%;
 }
 
 .todoButton {
   flex: 1;
-  /* 各ボタンの幅を均等にする */
   margin: 0 4px;
-  /* ボタン間のスペースを調整 */
-  height: 50px;
+  height: 80px;
   padding: 0px 3px;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: normal;
   border: none;
   border-radius: 5px;
@@ -128,6 +124,13 @@ button {
   font-weight: bolder;
   cursor: pointer;
   transition: background-color 0.8s;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  /* 影を追加 */
+}
+
+.todoButton:hover {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  /* ホバー時の影 */
 }
 
 .favTodoButton {
@@ -136,15 +139,8 @@ button {
 
 .completedTodoButton {
   background-color: #a4cc6d;
-  width: 100%;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 4.5vw;
-  white-space: nowrap;
-  padding: 10px 15px;
+  font-size: 1.25rem;
+  width: 50%;
 }
 
 .btn-green {
@@ -152,18 +148,13 @@ button {
 }
 
 .btn-red {
-  width: 100%;
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 10px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 4.5vw;
   white-space: nowrap;
+  width: 50%;
 }
 
 p {
-  margin: 10px 0px;
+  margin: 10px 0;
 }
 
 .display {
@@ -172,7 +163,7 @@ p {
 
 /* todoの内容 */
 .todoText {
-  font-size: 30px;  
+  font-size: 30px;
   word-break: break-all;
   overflow-wrap: normal;
 }
@@ -185,30 +176,29 @@ p {
 
 .todoDeadlineRED {
   background-color: rgba(255, 145, 108, 0.6);
-  width: 40%;
   width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 /* タスク完了画面の注意書きクラス */
-
 .infoCompleteList {
   background: #a4cc6d;
-  /*背景色*/
   padding: 0.5em;
-  /*文字周りの余白*/
   color: white;
-  /*文字を白に*/
   border-radius: 0.5em;
-  /*角の丸み*/
   text-indent: 1rem;
-  margin: 10px 0px 0px 0px;
+  margin: 10px 0 0 0;
+  font-family: 'Arial', sans-serif;
+  /* フォントスタイル */
+  font-size: 1.5rem;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  /* 影を追加 */
 }
 
 .info {
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   padding: 5px 20px 5px 5px;
   border: 1px solid #404040;
   opacity: 0.8;
-} 
+}
